@@ -1,11 +1,11 @@
-// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE.txt in the project root for license information.
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+const mysql = require('mysql');
+//const db = require('./helpers/mysqlservices.js');
 require('dotenv').config();
 
 var index = require('./routes/index');
@@ -13,6 +13,8 @@ var authorize = require('./routes/authorize');
 var mail = require('./routes/mail');
 var calendar = require('./routes/calendar');
 var contacts = require('./routes/contacts');
+var composeMessage = require('./routes/composeMessage');
+var replyMessage = require('./routes/replyMessage');
 
 var app = express();
 
@@ -33,6 +35,8 @@ app.use('/authorize', authorize);
 app.use('/mail', mail);
 app.use('/calendar', calendar);
 app.use('/contacts', contacts);
+app.use('/composeMessage', composeMessage);
+app.use('/replyMessage', replyMessage);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,6 +57,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-app.listen(3000);
-console.log('Server Listening at 3000');
+app.listen(8085);
+console.log('Server Listening at 8080');
 
